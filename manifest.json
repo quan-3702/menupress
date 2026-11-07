@@ -1,0 +1,16 @@
+{
+  "name": "MenuPress - Menu Maker for Restaurants & Cafés",
+  "short_name": "MenuPress",
+  "description": "Make a beautiful menu or price list for your restaurant, café, bakery or salon: QR code, print, menu board for a TV – works offline.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#c2410c",
+  "theme_color": "#c2410c",
+  "categories": ["business", "productivity", "food"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

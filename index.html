@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MenuPress - Menu Maker for Restaurants &amp; Cafés</title>
+  <meta name="description" content="Make a beautiful menu or price list for your restaurant, café, bakery or salon in minutes. QR code, print on Letter or A4, menu board for a TV screen. Works offline, no subscription.">
+  <meta name="theme-color" content="#c2410c">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="icon-192.png" alt="" width="30" height="30"><span>MenuPress</span></div>
+    <span class="spacer"></span>
+    <div class="top-btns">
+      <select id="exampleSel" class="tb" aria-label="Start from an example">
+        <option value="">✨ Start from an example…</option>
+        <option value="pho">Vietnamese restaurant</option>
+        <option value="cafe">Coffee shop</option>
+        <option value="bakery">Bakery</option>
+        <option value="nails">Nail salon price list</option>
+        <option value="pizza">Pizza &amp; burgers</option>
+      </select>
+      <button id="printBtn" class="tb primary-tb" title="Print (Ctrl+P)">🖨 Print menu</button>
+      <button id="pngBtn" class="tb">🖼 Save picture</button>
+      <button id="moreBtn" class="tb">☰ More</button>
+      <button id="proBtn" class="pro-btn">★ Get Pro</button>
+    </div>
+    <div id="menu" class="menu" hidden>
+      <button id="saveBtn">💾 Save my menu (file) <small>Ctrl+S</small></button>
+      <button id="openBtn">📂 Open a saved menu…</button>
+      <hr>
+      <a href="help.html" target="_blank" rel="noopener">❓ How to use MenuPress</a>
+      <a href="mailto:thequan03072002@gmail.com?subject=MenuPress%20feedback">✉ Feedback &amp; support</a>
+      <a href="https://apps.microsoft.com/detail/9NP0RPZLKVFR" target="_blank" rel="noopener">More apps: LabelPress – labels for jars &amp; boxes</a>
+      <a href="https://apps.microsoft.com/detail/9NDCRGD5QFJ4" target="_blank" rel="noopener">More apps: RecipePress – family cookbook</a>
+    </div>
+    <input id="openIn" type="file" accept=".json,application/json" hidden>
+    <input id="logoIn" type="file" accept="image/*" hidden>
+  </header>
+
+  <main class="layout">
+    <aside class="left">
+      <section class="tool">
+        <h2>🏪 Your place</h2>
+        <label class="field">Name<input id="name" type="text" maxlength="60" placeholder="Phở Sài Gòn"></label>
+        <label class="field">Small line under the name<input id="tagline" type="text" maxlength="90" placeholder="Fresh Vietnamese kitchen since 1998"></label>
+        <label class="field">Address, phone, opening hours<input id="footer" type="text" maxlength="160" placeholder="123 Main St · (555) 123-4567 · Mon–Sun 10am–9pm"></label>
+        <div class="row"><span class="field">Logo <span class="pro-tag">PRO</span></span><span><button id="logoPick" class="ghost small">🖼 Choose…</button> <button id="logoClear" class="ghost small" hidden>✕</button></span></div>
+      </section>
+      <section class="tool">
+        <h2>📋 The menu</h2>
+        <textarea id="text" rows="16" spellcheck="true"></textarea>
+        <p class="hint"><code># Starters</code> starts a section. Then one dish per line: <code>Name | price | short description</code>. A line starting with <code>&gt;</code> is a small note under the section.</p>
+      </section>
+      <section class="tool">
+        <h2>🎨 Look</h2>
+        <label class="field">Design<select id="designSel"></select></label>
+        <div class="two">
+          <label class="field">Paper<select id="paperSel">
+            <option value="letter">US Letter</option><option value="a4">A4</option><option value="legal">US Legal</option><option value="half">Half Letter (2 per sheet)</option><option value="tabloid">Tabloid 11×17 ★</option>
+          </select></label>
+          <label class="field">Columns<select id="colsSel"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></label>
+        </div>
+        <label class="field"><span>Text size <span id="sizeVal" class="muted"></span></span><input id="size" type="range" min="70" max="140" step="5"></label>
+        <label class="check"><input id="dots" type="checkbox"> Dotted line to the price</label>
+        <label class="check"><input id="fit" type="checkbox"> Make it fit on one page</label>
+      </section>
+      <section class="tool">
+        <h2>🔳 QR code</h2>
+        <label class="check"><input id="qrOn" type="checkbox"> Show a QR code on the menu</label>
+        <label class="field">Opens<input id="qrText" type="text" maxlength="300" placeholder="https://your-website.com/menu"></label>
+        <label class="field">Text next to it<input id="qrLabel" type="text" maxlength="60" placeholder="Scan to order online"></label>
+      </section>
+      <section class="tool">
+        <h2>📺 Menu board (TV screen) <span class="pro-tag">PRO</span></h2>
+        <p class="hint">A picture in 1920×1080 for a TV or a screen in your shop – same design, landscape.</p>
+        <button id="tvBtn" class="ghost">📺 Save menu board picture</button>
+      </section>
+      <p id="setHint" class="hint warn"></p>
+      <p class="promise">🔒 Works on this PC, offline – nothing is uploaded.<br>💳 Pay once for Pro – no subscription.</p>
+      <p class="fb-note">💬 Something not working the way you want? Tell me – <a href="mailto:thequan03072002@gmail.com?subject=MenuPress%20feedback">thequan03072002@gmail.com</a>. I read every message and improve the app.</p>
+    </aside>
+    <section class="stage">
+      <div class="stagebar"><span id="pageLine" class="muted"></span></div>
+      <div id="preview" class="preview"></div>
+    </section>
+  </main>
+
+  <dialog id="proDialog" class="dlg">
+    <h2>MenuPress Pro</h2>
+    <p class="muted">One-time purchase. Yours forever on this Microsoft account. No subscription, ever.</p>
+    <ul class="pro-list">
+      <li><strong>All 8 designs</strong> – Chalkboard, Elegant gold, Fresh green, Bistro, Night and more</li>
+      <li><strong>Your logo</strong> on the menu</li>
+      <li><strong>Menus with many pages</strong> – the free version prints one page</li>
+      <li><strong>Menu board picture</strong> for a TV screen, and pictures for Facebook, Instagram and delivery apps</li>
+      <li><strong>No “Made with MenuPress” line</strong> at the bottom</li>
+    </ul>
+    <p class="fb-note">💬 Something not working the way you want? Tell me – <a href="mailto:thequan03072002@gmail.com?subject=MenuPress%20feedback">thequan03072002@gmail.com</a>. I read every message and improve the app.</p>
+    <p id="proMsg" class="pro-msg" hidden></p>
+    <div class="row-btns">
+      <button id="buyBtn" class="primary" autofocus>Unlock Pro</button>
+      <button id="restoreBtn" class="ghost">Restore purchase</button>
+      <button id="closePro" class="ghost">Not now</button>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" hidden></div>
+  <div id="restartBar" class="restart" hidden>A new version of MenuPress is ready. <button id="restartBtn" class="primary">Restart now</button></div>
+  <div id="printArea"></div>
+  <script src="qr.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
